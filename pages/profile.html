@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Profile — Megatron</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css"><link rel="stylesheet" href="../css/responsive.css"></head>
+<body class="app" data-page="profile">
+<div class="app-shell">
+<header class="topbar">
+<button class="icon-btn menu-toggle" data-demo-action>☰</button>
+<a class="brand" href="../index.html"><span class="brand-mark">M</span><span>MEGATRON<span class="brand-sub">ANALYSIS TOOL</span></span></a>
+<div class="market-top"><select data-market-select></select><span class="live-indicator"><i></i>Market service: <b>DEMO</b></span></div>
+<div class="top-actions"><button class="icon-btn" data-demo-action>⌕</button><button class="icon-btn" data-demo-action>♢</button><a class="avatar" href="profile.html">AI</a></div>
+</header>
+<aside class="sidebar">
+  <div class="nav-label">WORKSPACE</div>
+  <a class="nav-link" data-page="dashboard" href="dashboard.html"><span>⌂</span>Dashboard</a>
+  <a class="nav-link" data-page="markets" href="markets.html"><span>◉</span>Markets</a>
+  <a class="nav-link" data-page="analyzer" href="analyzer.html"><span>⌁</span>Analyzer</a>
+  <a class="nav-link" data-page="charts" href="charts.html"><span>◫</span>Charts</a>
+  <a class="nav-link" data-page="signals" href="signals.html"><span>↗</span>Signals</a>
+  <div class="nav-label">INTELLIGENCE</div>
+  <a class="nav-link" data-page="patterns" href="patterns.html"><span>✧</span>Trading Patterns</a>
+  <a class="nav-link" data-page="probability" href="probability.html"><span>▥</span>Digit Probability</a>
+  <a class="nav-link" data-page="ai-analysis" href="ai-analysis.html"><span>✦</span>AI Analysis</a>
+  <div class="nav-label">ACCOUNT</div>
+  <a class="nav-link" data-page="history" href="history.html"><span>◷</span>History</a>
+  <a class="nav-link" data-page="profile" href="profile.html"><span>◎</span>Profile</a>
+  <a class="nav-link" data-page="settings" href="settings.html"><span>⚙</span>Settings</a>
+  <div class="nav-label">ADMIN</div>
+  <a class="nav-link" href="admin.html"><span>▦</span>Admin</a>
+</aside>
+<main class="main">
+<div class="page-head"><div><div class="eyebrow">ACCOUNT</div><h1>Profile</h1><p>Manage your Megatron account preferences.</p></div></div>
+<div class="grid grid-2">
+<div class="card"><div style="display:flex;align-items:center;gap:16px"><div class="avatar" style="width:64px;height:64px;font-size:18px">AI</div><div><h3 style="margin:0">Megatron User</h3><p style="color:#607795;font-size:10px">user@example.com</p></div></div><button class="btn section-gap" data-demo-action>Change profile image</button></div>
+<div class="card"><div class="card-title"><h3>Account details</h3></div><label class="label">NAME</label><input class="input" value="Megatron User"><label class="label section-gap">EMAIL</label><input class="input" value="user@example.com"><button class="btn btn-primary section-gap" data-demo-action>Save changes</button></div>
+</div>
+</main>
+<nav class="mobile-nav">
+<a data-page="dashboard" href="dashboard.html"><span>⌂</span>Home</a>
+<a data-page="markets" href="markets.html"><span>◉</span>Markets</a>
+<a data-page="analyzer" href="analyzer.html"><span>⌁</span>Analyze</a>
+<a data-page="signals" href="signals.html"><span>↗</span>Signals</a>
+<a data-page="profile" href="profile.html"><span>◎</span>Profile</a>
+</nav>
+</div>
+<div class="toast"></div>
+<script src="../js/auth-client.js"></script><script src="../js/auth-guard.js"></script><script src="../js/app.js"></script></body></html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account — Megatron</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/responsive.css">
+<style>
+  .auth-shell{min-height:100vh;display:grid;place-items:center;padding:30px}
+  .auth-card{width:min(420px,100%);padding:36px}
+  .auth-card h1{font-size:26px;margin:18px 0 6px;letter-spacing:-.03em}
+  .auth-card p.sub{color:#7188aa;font-size:12px;margin:0 0 26px}
+  .auth-field{margin-bottom:16px}
+  .auth-error{background:#3a0f14;border:1px solid #6b1c26;color:#ff8a94;padding:11px 14px;border-radius:10px;font-size:11px;margin-bottom:16px;display:none}
+  .auth-foot{text-align:center;margin-top:22px;font-size:11px;color:#7188aa}
+  .auth-foot a{color:#5ea7ff}
+  .auth-brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.08em;justify-content:center}
+</style>
+</head>
+<body class="landing">
+<div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+
+<div class="auth-shell">
+  <div class="card auth-card">
+
+    <div class="auth-brand">
+      <span class="brand-mark">M</span>
+      <span>MEGATRON<span class="brand-sub" style="display:block">ANALYSIS TOOL</span></span>
+    </div>
+
+    <h1>Create your account</h1>
+    <p class="sub">Get real-time market analysis, saved watchlists, and history.</p>
+
+    <div class="auth-error" id="register-error"></div>
+
+    <form id="register-form">
+
+      <div class="auth-field">
+        <label class="label" for="name">Full Name</label>
+        <input class="input" type="text" id="name" required>
+      </div>
+
+      <div class="auth-field">
+        <label class="label" for="email">Email Address</label>
+        <input class="input" type="email" id="email" required>
+      </div>
+
+      <div class="auth-field">
+        <label class="label" for="password">Password</label>
+        <input class="input" type="password" id="password" minlength="8" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg" style="width:100%" id="register-submit">
+        Create Account
+      </button>
+
+    </form>
+
+    <div class="auth-foot">
+      Already have an account? <a href="login.html">Sign in</a>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/auth-client.js"></script>
+<script src="../js/register.js"></script>
+</body>
+</html>

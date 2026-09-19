@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin Panel — Megatron</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css"><link rel="stylesheet" href="../css/responsive.css">
+<style>
+  .admin-tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+  .admin-tab{padding:9px 16px;border-radius:9px;border:1px solid #223047;background:#101a2b;color:#7188aa;font-size:12px;font-weight:600;cursor:pointer}
+  .admin-tab.active{background:#5ea7ff;color:#04101f;border-color:#5ea7ff}
+  .admin-panel{display:none}
+  .admin-panel.active{display:block}
+  .admin-search{max-width:280px;margin-bottom:16px}
+  .role-badge{padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.04em}
+  .role-badge.admin{background:#261f0b;color:#ffc85b}
+  .role-badge.user{background:#0e1f33;color:#5ea7ff}
+  .status-pill{padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700}
+  .status-pill.active{background:#0c2a1c;color:#3ddc84}
+  .status-pill.suspended{background:#3a0f14;color:#ff8a94}
+  .row-actions{display:flex;gap:6px;flex-wrap:wrap}
+  .row-actions button{font-size:10px;padding:5px 10px;border-radius:7px;border:1px solid #223047;background:#101a2b;color:#c7d3e6;cursor:pointer}
+  .row-actions button:hover{border-color:#5ea7ff}
+  .row-actions button.danger:hover{border-color:#ff5b6a;color:#ff8a94}
+  .log-line{font-family:monospace;font-size:11px;padding:8px 10px;border-bottom:1px solid #182338;display:flex;gap:10px}
+  .log-line .lvl{width:52px;flex-shrink:0;font-weight:700}
+  .log-line .lvl.warn{color:#ffc85b}
+  .log-line .lvl.error{color:#ff5b6a}
+  .log-line .lvl.info{color:#5ea7ff}
+  .loading-row td{text-align:center;padding:30px;color:#7188aa}
+</style>
+</head>
+<body class="app" data-page="admin">
+<div class="app-shell">
+<header class="topbar">
+<button class="icon-btn menu-toggle" data-demo-action>☰</button>
+<a class="brand" href="../index.html"><span class="brand-mark">M</span><span>MEGATRON<span class="brand-sub">ANALYSIS TOOL</span></span></a>
+<div class="market-top"><span class="live-indicator"><i></i>Admin Panel</span></div>
+<div class="top-actions"><span id="admin-name-badge" style="font-size:12px;color:#7188aa;margin-right:10px"></span><button class="btn btn-ghost" id="admin-logout-btn" style="font-size:12px">Logout</button></div>
+</header>
+<aside class="sidebar">
+  <div class="nav-label">WORKSPACE</div>
+  <a class="nav-link" href="dashboard.html"><span>⌂</span>Dashboard</a>
+  <a class="nav-link" href="markets.html"><span>◉</span>Markets</a>
+  <a class="nav-link" href="analyzer.html"><span>⌁</span>Analyzer</a>
+  <a class="nav-link" href="charts.html"><span>◫</span>Charts</a>
+  <a class="nav-link" href="signals.html"><span>↗</span>Signals</a>
+  <div class="nav-label">INTELLIGENCE</div>
+  <a class="nav-link" href="patterns.html"><span>✧</span>Trading Patterns</a>
+  <a class="nav-link" href="probability.html"><span>▥</span>Digit Probability</a>
+  <a class="nav-link" href="ai-analysis.html"><span>✦</span>AI Analysis</a>
+  <div class="nav-label">ACCOUNT</div>
+  <a class="nav-link" href="history.html"><span>◷</span>History</a>
+  <a class="nav-link" href="profile.html"><span>◎</span>Profile</a>
+  <a class="nav-link" href="settings.html"><span>⚙</span>Settings</a>
+  <div class="nav-label">ADMIN</div>
+  <a class="nav-link active" href="admin.html"><span>▦</span>Admin</a>
+</aside>
+<main class="main">
+
+<div class="page-head">
+  <div><div class="eyebrow">OWNER CONTROLS</div><h1>Admin Panel</h1><p>Manage users and monitor the platform — real data, live from your database.</p></div>
+</div>
+
+<div class="grid grid-4" id="admin-stats-grid">
+  <div class="card stat-card"><small>TOTAL USERS</small><strong id="stat-total-users">—</strong></div>
+  <div class="card stat-card"><small>ACTIVE USERS</small><strong id="stat-active-users">—</strong></div>
+  <div class="card stat-card"><small>TOTAL ANALYSES</small><strong id="stat-total-analyses">—</strong></div>
+  <div class="card stat-card"><small>LAST 24H</small><strong id="stat-24h-analyses">—</strong></div>
+</div>
+
+<div class="admin-tabs">
+  <button class="admin-tab active" data-tab="users">Users</button>
+  <button class="admin-tab" data-tab="status">System Status</button>
+  <button class="admin-tab" data-tab="logs">Logs</button>
+</div>
+
+<!-- USERS -->
+<div class="admin-panel active" id="panel-users">
+  <div class="card" style="padding:20px">
+    <input class="input admin-search" id="user-search" placeholder="Search by name or email...">
+    <div style="overflow-x:auto">
+    <table class="data-table" style="width:100%">
+      <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead>
+      <tbody id="users-tbody">
+        <tr class="loading-row"><td colspan="6">Loading users...</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- SYSTEM STATUS -->
+<div class="admin-panel" id="panel-status">
+  <div class="grid grid-2">
+    <div class="card" style="padding:20px">
+      <h3 style="margin:0 0 14px">Database</h3>
+      <div id="db-status-content">Loading...</div>
+    </div>
+    <div class="card" style="padding:20px">
+      <h3 style="margin:0 0 14px">Deriv Market Feed</h3>
+      <div id="deriv-status-content">Loading...</div>
+    </div>
+  </div>
+  <div class="card" style="padding:20px;margin-top:16px">
+    <h3 style="margin:0 0 14px">Server</h3>
+    <div id="server-status-content">Loading...</div>
+  </div>
+</div>
+
+<!-- LOGS -->
+<div class="admin-panel" id="panel-logs">
+  <div class="card" style="padding:20px">
+    <div style="display:flex;gap:10px;margin-bottom:14px">
+      <select class="input" id="log-level-filter" style="max-width:160px">
+        <option value="">All levels</option>
+        <option value="info">Info</option>
+        <option value="warn">Warning</option>
+        <option value="error">Error</option>
+      </select>
+      <button class="btn btn-ghost" id="refresh-logs-btn">Refresh</button>
+    </div>
+    <div id="logs-container">Loading logs...</div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script src="../js/auth-client.js"></script>
+<script src="../js/admin-guard.js"></script>
+<script src="../js/admin-panel.js"></script>
+</body>
+</html>
