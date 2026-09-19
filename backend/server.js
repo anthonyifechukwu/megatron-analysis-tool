@@ -15,13 +15,15 @@ const ensureAdminAccount = require("./utils/seedAdmin");
 const logger = require("./utils/logger");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
 
+
+const adminRoutes = require("./routes/admin");
+const derivAuthRoutes = require("./routes/derivAuth");
 const authRoutes = require("./routes/auth");
 const marketRoutes = require("./routes/markets");
 const analysisRoutes = require("./routes/analysis");
 const watchlistRoutes = require("./routes/watchlist");
 const historyRoutes = require("./routes/history");
 const preferencesRoutes = require("./routes/preferences");
-const adminRoutes = require("./routes/admin");
 
 const app = express();
 
@@ -31,6 +33,8 @@ app.use(compression());
 app.use(express.json({ limit: "1mb" }));
 app.use(mongoSanitize());
 app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
+app.use("/api/admin", adminRoutes);
+app.use("/auth/deriv", derivAuthRoutes);
 
 const allowedOrigins = (process.env.CORS_ORIGIN || "")
   .split(",")
