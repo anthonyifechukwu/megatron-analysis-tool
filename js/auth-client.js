@@ -12,7 +12,7 @@
 const MEGATRON_API_BASE = (() => {
   const isLocal = ["localhost", "127.0.0.1"].includes(window.location.hostname);
   if (isLocal) return "http://localhost:5000/api";
-  return "https://YOUR-BACKEND-URL.onrender.com/api"; // <-- replace after deploying
+  return "https://megatron-analysis-tool.onrender.com/api"; // <-- replace after deploying
 })();
 
 const MEGATRON_AUTH = {

@@ -44,13 +44,27 @@ const allowedOrigins = (process.env.CORS_ORIGIN || "")
 app.use(
   cors({
     origin(origin, callback) {
-      // allow same-origin/non-browser requests (no Origin header) and configured origins
-      if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+      // Allow requests with no Origin header
+      if (!origin) {
         return callback(null, true);
       }
+
+      // Development: allow localhost and 127.0.0.1
+      const isLocalhost =
+        origin === "http://localhost:5500" ||
+        origin === "http://127.0.0.1:5500" ||
+        origin === "http://localhost:3000" ||
+        origin === "http://127.0.0.1:3000";
+
+      if (isLocalhost || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
       return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 

@@ -5,6 +5,7 @@ let isConnected = false;
 
 async function connectDB() {
   const uri = process.env.MONGO_URI;
+
   if (!uri) {
     logger.error("MONGO_URI is not set. Add it to your .env file.");
     process.exit(1);
@@ -16,9 +17,11 @@ async function connectDB() {
     isConnected = true;
     logger.info("MongoDB connected");
   });
+
   mongoose.connection.on("error", (err) => {
     logger.error(`MongoDB connection error: ${err.message}`);
   });
+
   mongoose.connection.on("disconnected", () => {
     isConnected = false;
     logger.warn("MongoDB disconnected");
@@ -35,9 +38,22 @@ async function connectDB() {
 }
 
 function dbStatus() {
-  const state = mongoose.connection.readyState; // 0,1,2,3
-  const map = { 0: "disconnected", 1: "connected", 2: "connecting", 3: "disconnecting" };
-  return { state: map[state] || "unknown", connected: isConnected };
+  const state = mongoose.connection.readyState;
+
+  const map = {
+    0: "disconnected",
+    1: "connected",
+    2: "connecting",
+    3: "disconnecting",
+  };
+
+  return {
+    state: map[state] || "unknown",
+    connected: isConnected,
+  };
 }
 
-module.exports = { connectDB, dbStatus };
+module.exports = {
+  connectDB,
+  dbStatus,
+};

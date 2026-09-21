@@ -7,7 +7,7 @@
 */
 
 const MegatronAPI = {
-  baseURL: "/api",
+  baseURL: "https://megatron-analysis-tool.onrender.com/api",
 
   // ---- token storage ----
   getAccessToken() {
