@@ -33,7 +33,6 @@ app.use(compression());
 app.use(express.json({ limit: "1mb" }));
 app.use(mongoSanitize());
 app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
-app.use("/api/admin", adminRoutes);
 app.use("/auth/deriv", derivAuthRoutes);
 
 const allowedOrigins = (process.env.CORS_ORIGIN || "")
@@ -56,7 +55,10 @@ app.use(
         origin === "http://localhost:3000" ||
         origin === "http://127.0.0.1:3000";
 
-      if (isLocalhost || allowedOrigins.includes(origin)) {
+      const isProductionSite =
+        origin === "https://megatron-analysis-tool.onrender.com";
+
+      if (isLocalhost || isProductionSite || allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
